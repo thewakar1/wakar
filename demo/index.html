@@ -112,7 +112,7 @@
     <demo-snippet>
       <template>
         <template is="dom-bind">
-          <infinite-data data-source="{{dataSource}}" size="{{size}}"></infinite-data>
+          <iron-list> data-source="{{dataSource}}" size="{{size}}"></iron-list>
           <iron-data-table id="infinite" data-source="[[dataSource]]" size="[[size]]">
             <data-table-column name="#">
               <template>[[index]] of [[size]]</template>
@@ -127,7 +127,7 @@
           <script>
             document.addEventListener('WebComponentsReady', function() {
               Polymer({
-                is: 'infinite-data',
+                is: 'iron-list-data',
 
                 properties: {
                   dataSource: {
