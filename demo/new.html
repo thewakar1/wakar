@@ -1,0 +1,58 @@
+<template is="dom-bind">
+  <infinite-data data-source="{{dataSource}}" size="{{size}}"></infinite-data>
+  <iron-data-table id="infinite" data-source="[[dataSource]]" size="[[size]]">
+    <data-table-column name="#">
+      <template>[[index]] of [[size]]</template>
+    </data-table-column>
+    <data-table-column name="First Name">
+      <template>[[item.user.name.first]]</template>
+    </data-table-column>
+    <data-table-column name="Last Name">
+      <template>[[item.user.name.last]]</template>
+    </data-table-column>
+  </iron-data-table>
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      Polymer({
+        is: 'infinite-data',
+
+        properties: {
+          dataSource: {
+            notify: true,
+            value: function() {
+              return this._dataSource.bind(this);
+            }
+          },
+
+          size: {
+            notify: true,
+            value: 50
+          },
+
+          users: Object
+        },
+        _dataSource: function(opts, cb) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+              if (xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+
+                // if last page is reached, increment the size.
+                if (this.size / opts.pageSize >= opts.page) {
+                  this.size += opts.pageSize;
+                }
+
+                // returning a page full of users always.
+                cb(json.results.slice(0, opts.pageSize));
+              }
+            }
+          }.bind(this);
+
+          xhr.open("GET", 'users.json', true);
+          xhr.send();
+        }
+      });
+    });
+  </script>
+</template>
