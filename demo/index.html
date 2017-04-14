@@ -108,12 +108,12 @@
       </template>
     </demo-snippet>
 
-    <h3>"Infinite" Data Source</h3>
+    <h3>"iron-list" Data Source</h3>
     <demo-snippet>
       <template>
         <template is="dom-bind">
           <iron-list> data-source="{{dataSource}}" size="{{size}}"></iron-list>
-          <iron-data-table id="infinite" data-source="[[dataSource]]" size="[[size]]">
+          <iron-data-table id="iron-list" data-source="[[dataSource]]" size="[[size]]">
             <data-table-column name="#">
               <template>[[index]] of [[size]]</template>
             </data-table-column>
